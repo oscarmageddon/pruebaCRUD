@@ -14,6 +14,7 @@ public class Transaction {
 	private String nombreUsr;
 	private String apellidoUsr;
 	private String paymentMethod;
+	private String estado;
 	
 	public String getDniUsr() {
 		return dniUsr;
@@ -41,6 +42,15 @@ public class Transaction {
 	}
     public Long getId() {
 		return id;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
