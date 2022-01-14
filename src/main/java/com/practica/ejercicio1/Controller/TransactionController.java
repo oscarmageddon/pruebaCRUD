@@ -35,10 +35,10 @@ public class TransactionController {
 			transactionService.saveTransaction(transaction);
 		} 
 		catch (Exception e) {
-			TransactionException ex = new TransactionException();
-			ex.setErrorMessage(e.getClass().toString() + " " + e.getMessage());
-			ex.setDetail(e.getLocalizedMessage());
-			throw ex;
+			TransactionException exe = new TransactionException();
+			exe.setErrorMessage(e.getClass().toString() + " " + e.getMessage());
+			exe.setDetail(e.getLocalizedMessage());
+			throw exe;
 		}
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.CREATED);
 	}
