@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.practica.ejercicio1.Entity.Transaction;
 import com.practica.ejercicio1.Service.TransactionService;
 import com.practica.ejercicio1.dto.TransactionDto;
+import com.practica.ejercicio1.exception.TransactionException;
 
 @RestController
 @RequestMapping("/transaction")
@@ -24,13 +25,21 @@ public class TransactionController {
 	}
 	
 	@PostMapping("/")
-	public ResponseEntity<Transaction> insertarTransaction(@RequestBody TransactionDto transactionDto){
+	public ResponseEntity<Transaction> insertarTransaction(@RequestBody TransactionDto transactionDto) throws TransactionException{
 		Transaction transaction = new Transaction();
-		transaction.setNombreUsr(transactionDto.getNombreUsr());
-		transaction.setApellidoUsr(transactionDto.getApellidoUsr());
-		transaction.setDniUsr(transactionDto.getDniUsr());
-		transaction.setPaymentMethod(transactionDto.getPaymentMethod());
-		transactionService.saveTransaction(transaction);
+		try {
+			transaction.setNombreUsr(transactionDto.getNombreUsr());
+			transaction.setApellidoUsr(transactionDto.getApellidoUsr());
+			transaction.setDniUsr(transactionDto.getDniUsr());
+			transaction.setPaymentMethod(transactionDto.getPaymentMethod());
+			transactionService.saveTransaction(transaction);
+		} 
+		catch (Exception e) {
+			TransactionException ex = new TransactionException();
+			ex.setErrorMessage(e.getClass().toString() + " " + e.getMessage());
+			ex.setDetail(e.getLocalizedMessage());
+			throw ex;
+		}
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.CREATED);
 	}
 }
