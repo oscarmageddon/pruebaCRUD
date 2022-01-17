@@ -1,5 +1,8 @@
 package com.practica.ejercicio1.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,4 +23,18 @@ public class TransactionService {
 		repoTransaction.save(transaction);
 	}
 	
-}
+	public void deleteById(Long Id) {
+		this.repoTransaction.deleteById(Id);
+		}
+
+
+
+	    public void saveOrUpdate(Transaction transaction) {
+	    	repoTransaction.save( transaction);
+	    }
+
+	
+	}
+	
+	
+
