@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,14 +51,14 @@ public class TransactionController {
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.CREATED);
 	}
 	
-	@RequestMapping(value = "/tranx", method = RequestMethod.GET)
+	@GetMapping("/")
 	public ResponseEntity<List<Transaction>> traerTransactions () {
 		List<Transaction> transactions = transactionService.traerTransactions();
 		return new ResponseEntity<List<Transaction>>(transactions, HttpStatus.OK);
 	}
 	
 	
-	@RequestMapping(value = "/tranx/dni/{dniUsr}", method = RequestMethod.GET)
+	@GetMapping("/dni/{dniUsr}")
 	public ResponseEntity<Transaction> traerTransactionDni(@PathVariable("dniUsr") String dniUsr) {
 		Transaction transaction = transactionService.traerTransactionDni(dniUsr);
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.CREATED);
