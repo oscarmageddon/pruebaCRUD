@@ -22,6 +22,29 @@ public class TransactionService {
 	public void saveTransaction(Transaction transaction) {
 		repoTransaction.save(transaction);
 	}
+
+	public List<Transaction> getAllTransactions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	
+	public List<Transaction> traerTransactions() {
+		 List<Transaction> transactions = new ArrayList<Transaction>();
+		 repoTransaction.findAll().forEach(transaction -> transactions.add(transaction));
+	     return transactions;
+	}
+	
+	public Transaction traerTransactionDni(String dni) {
+		return repoTransaction.findByDniUsr(dni);
+	}
+	
 	
 	public void deleteById(Long Id) {
 		this.repoTransaction.deleteById(Id);
