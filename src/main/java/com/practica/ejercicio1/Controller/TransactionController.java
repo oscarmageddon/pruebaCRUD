@@ -22,9 +22,7 @@ import com.practica.ejercicio1.dto.TransactionDto;
 import com.practica.ejercicio1.exception.TransactionException;
 
 @RestController
-
 @RequestMapping("/transaction")
-
 public class TransactionController {
 
 	private TransactionService transactionService;
@@ -71,12 +69,10 @@ public class TransactionController {
 		return new ResponseEntity<List<Transaction>>(transactions, HttpStatus.OK);
 	}
 
-
 	@GetMapping("/dni/{dniUsr}")
 	public ResponseEntity<Transaction> traerTransactionDni(@PathVariable("dniUsr") String dniUsr) {
 		Transaction transaction = transactionService.traerTransactionDni(dniUsr);
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.CREATED);
 
 	}
-
 }
