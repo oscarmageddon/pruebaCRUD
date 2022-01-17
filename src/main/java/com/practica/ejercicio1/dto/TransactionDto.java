@@ -1,21 +1,19 @@
-package com.practica.ejercicio1.Entity;
+package com.practica.ejercicio1.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class Transaction {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TransactionDto {
 	private Long id;
 	private String dniUsr;
 	private String nombreUsr;
 	private String apellidoUsr;
 	private String paymentMethod;
-	private String estado;
 	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getDniUsr() {
 		return dniUsr;
 	}
@@ -39,15 +37,6 @@ public class Transaction {
 	}
 	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
-	}
-    public Long getId() {
-		return id;
-	}
-	public String getEstado() {
-		return estado;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
 	}
 
 }

@@ -1,10 +1,13 @@
 package com.practica.ejercicio1.Service;
 
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+>>>>>>> master
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.practica.ejercicio1.Entity.Transaction;
 import com.practica.ejercicio1.Repository.TransactionRepo;
 
@@ -36,5 +39,16 @@ public class TransactionService {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public List<Transaction> traerTransactions() {
+		 List<Transaction> transactions = new ArrayList<Transaction>();
+		 repoTransaction.findAll().forEach(transaction -> transactions.add(transaction));
+	     return transactions;
+	}
+	
+	public Transaction traerTransactionDni(String dni) {
+		return repoTransaction.findByDniUsr(dni);
+	}
+	
 	
 }
