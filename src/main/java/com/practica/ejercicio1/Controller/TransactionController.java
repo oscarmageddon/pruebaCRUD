@@ -8,7 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import org.springframework.web.bind.annotation.PutMapping;
+
 import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +22,9 @@ import com.practica.ejercicio1.dto.TransactionDto;
 import com.practica.ejercicio1.exception.TransactionException;
 
 @RestController
+
 @RequestMapping("/transaction")
+
 public class TransactionController {
 
 	private TransactionService transactionService;
@@ -26,11 +32,6 @@ public class TransactionController {
 	@Autowired
 	public TransactionController(TransactionService transactionService) {
 		this.transactionService = transactionService;
-	}
-
-	@GetMapping("/tranx")
-	private List<Transaction> getAllTransactions() {
-		return transactionService.getAllTransactions();
 	}
 
 	@PostMapping("/")
@@ -52,15 +53,16 @@ public class TransactionController {
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.CREATED);
 	}
 
-	@DeleteMapping("/tranx/{id}")
-	private void deletePerson(@PathVariable("id") Long id) {
-		transactionService.delete(id);
+	@DeleteMapping("/{id}")
+	private ResponseEntity<Transaction> deleteTransaction(@PathVariable("id") Long id) {
+		this.transactionService.deleteById(id);
+		return new ResponseEntity<Transaction>(new Transaction(), HttpStatus.OK);
 	}
 
-	@PostMapping("/tranx")
-	private Long saveTransaction(@RequestBody Transaction transaction) {
-		transactionService.saveOrUpdate(transaction);
-		return transaction.getId();
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Object> updateTranx(@RequestBody Transaction transaction, @PathVariable int Id) {
+		return ResponseEntity.ok(Boolean.TRUE);
+
 	}
 
 	@GetMapping("/")
@@ -69,10 +71,12 @@ public class TransactionController {
 		return new ResponseEntity<List<Transaction>>(transactions, HttpStatus.OK);
 	}
 
+
 	@GetMapping("/dni/{dniUsr}")
 	public ResponseEntity<Transaction> traerTransactionDni(@PathVariable("dniUsr") String dniUsr) {
 		Transaction transaction = transactionService.traerTransactionDni(dniUsr);
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.CREATED);
+
 	}
 
 }

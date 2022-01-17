@@ -1,13 +1,11 @@
 package com.practica.ejercicio1.Service;
 
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
->>>>>>> master
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.practica.ejercicio1.Entity.Transaction;
 import com.practica.ejercicio1.Repository.TransactionRepo;
 
@@ -35,10 +33,7 @@ public class TransactionService {
 		
 	}
 
-	public void saveOrUpdate(Transaction transaction) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 	public List<Transaction> traerTransactions() {
 		 List<Transaction> transactions = new ArrayList<Transaction>();
@@ -51,4 +46,18 @@ public class TransactionService {
 	}
 	
 	
-}
+	public void deleteById(Long Id) {
+		this.repoTransaction.deleteById(Id);
+		}
+
+
+
+	    public void saveOrUpdate(Transaction transaction) {
+	    	repoTransaction.save( transaction);
+	    }
+
+	
+	}
+	
+	
+
