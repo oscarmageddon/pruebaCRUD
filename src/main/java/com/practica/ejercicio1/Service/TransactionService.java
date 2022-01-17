@@ -1,6 +1,9 @@
 package com.practica.ejercicio1.Service;
 
+<<<<<<< HEAD
+=======
 import java.util.ArrayList;
+>>>>>>> master
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,21 @@ public class TransactionService {
 	
 	public void saveTransaction(Transaction transaction) {
 		repoTransaction.save(transaction);
+	}
+
+	public List<Transaction> getAllTransactions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void saveOrUpdate(Transaction transaction) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	public List<Transaction> traerTransactions() {
