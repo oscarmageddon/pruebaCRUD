@@ -39,12 +39,15 @@ public class TransactionController {
 			throws TransactionException {
 		Transaction transaction = new Transaction();
 		try {
+			
 			transaction.setNombreUsr(transactionDto.getNombreUsr());
 			transaction.setApellidoUsr(transactionDto.getApellidoUsr());
 			transaction.setDniUsr(transactionDto.getDniUsr());
 			transaction.setPaymentMethod(transactionDto.getPaymentMethod());
 			transaction.setEstado(transactionDto.getEstado());
 			transactionService.saveTransaction(transaction);
+			
+			System.out.println("OK");
 		} catch (Exception e) {
 			TransactionException ex = new TransactionException();
 			ex.setErrorMessage(e.getClass().toString() + " " + e.getMessage());
@@ -63,7 +66,8 @@ public class TransactionController {
 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Object> updateTranx(@RequestBody Transaction transaction, @PathVariable int Id) {
+	public ResponseEntity<Object> updateTranx(@RequestBody TransactionDto transaction, @PathVariable int id) {
+		this.transactionService.saveOrUpdate(id, transaction.getEstado());
 		return ResponseEntity.ok(Boolean.TRUE);
 
 	}

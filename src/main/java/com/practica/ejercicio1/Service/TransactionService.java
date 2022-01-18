@@ -20,6 +20,7 @@ public class TransactionService {
 	}
 
 	public void saveTransaction(Transaction transaction) {
+		System.out.println(transaction.getNombreUsr()); 
 		repoTransaction.save(transaction);
 	}
 
@@ -36,9 +37,11 @@ public class TransactionService {
 	public void deleteById(Long Id) {
 		this.repoTransaction.deleteById(Id);
 	}
-
-	public void saveOrUpdate(Transaction transaction) {
-		repoTransaction.save(transaction);
+	
+	public void saveOrUpdate(long id, String estado) {
+		  Transaction trx = repoTransaction.getById(id);
+		  trx.setEstado(estado);
+		  repoTransaction.save(trx);
 	}
 
 }
