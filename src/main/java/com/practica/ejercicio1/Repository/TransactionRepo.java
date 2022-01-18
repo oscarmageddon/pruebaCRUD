@@ -6,7 +6,6 @@ import com.practica.ejercicio1.Entity.Transaction;
 
 
 public interface TransactionRepo extends JpaRepository<Transaction, Long>{
-
 	
 	public Transaction findByDniUsr(String dni);
 }

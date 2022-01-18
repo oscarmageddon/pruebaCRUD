@@ -6,7 +6,7 @@ public class TransactionDto {
 	private String nombreUsr;
 	private String apellidoUsr;
 	private String paymentMethod;
-	
+	private String estado;
 	
 	public Long getId() {
 		return id;
@@ -37,6 +37,12 @@ public class TransactionDto {
 	}
 	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 }

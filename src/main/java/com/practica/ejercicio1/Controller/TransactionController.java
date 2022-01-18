@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,6 @@ import com.practica.ejercicio1.exception.TransactionException;
 
 @RestController
 @RequestMapping("/transaction")
-
 public class TransactionController {
 
 	private TransactionService transactionService;
@@ -40,6 +40,7 @@ public class TransactionController {
 			transaction.setApellidoUsr(transactionDto.getApellidoUsr());
 			transaction.setDniUsr(transactionDto.getDniUsr());
 			transaction.setPaymentMethod(transactionDto.getPaymentMethod());
+			transaction.setEstado(transactionDto.getEstado());
 			transactionService.saveTransaction(transaction);
 
 		} catch (Exception e) {
@@ -58,23 +59,21 @@ public class TransactionController {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Object> updateTranx(@RequestBody Transaction transaction, @PathVariable int Id) {
+	public ResponseEntity<Object> updateTranx(@RequestBody TransactionDto transaction, @PathVariable long id) {
+		transactionService.update(id, transaction.getEstado());
 		return ResponseEntity.ok(Boolean.TRUE);
-
 	}
-
+ 
 	@GetMapping("/")
 	public ResponseEntity<List<Transaction>> traerTransactions() {
 		List<Transaction> transactions = transactionService.traerTransactions();
 		return new ResponseEntity<List<Transaction>>(transactions, HttpStatus.OK);
 	}
 
-    
 	@GetMapping("/dni/{dniUsr}")
 	public ResponseEntity<Transaction> traerTransactionDni(@PathVariable("dniUsr") String dniUsr) {
 		Transaction transaction = transactionService.traerTransactionDni(dniUsr);
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.CREATED);
 
 	}
-
 }
