@@ -63,9 +63,9 @@ public class TransactionController {
 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Object> updateTranx(@RequestBody Transaction transaction, @PathVariable int Id) {
+	public ResponseEntity<Object> updateTranx(@RequestBody TransactionDto transaction, @PathVariable long id) {
+		transactionService.update(id, transaction.getEstado());
 		return ResponseEntity.ok(Boolean.TRUE);
-
 	}
  
 	@CrossOrigin(origins = "http://localhost:4200")
