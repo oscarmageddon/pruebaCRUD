@@ -28,7 +28,7 @@ public class TransactionController {
 		this.transactionService = transactionService;
 	}
 
-	@GetMapping("/tranx")
+	@GetMapping("/transaction")
 	private List<Transaction> getAllTransactions() {
 		return transactionService.getAllTransactions();
 	}
@@ -57,7 +57,7 @@ public class TransactionController {
 		transactionService.delete(id);
 	}
 
-	@PostMapping("/tranx")
+	@PostMapping("/transaction")
 	private Long saveTransaction(@RequestBody Transaction transaction) {
 		transactionService.saveOrUpdate(transaction);
 		return transaction.getId();
