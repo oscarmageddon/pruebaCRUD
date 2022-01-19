@@ -37,19 +37,11 @@ public class TransactionService {
 	public void deleteById(Long Id) {
 		this.repoTransaction.deleteById(Id);
 	}
-<<<<<<< HEAD
-	
+
 	public void saveOrUpdate(long id, String estado) {
 		  Transaction trx = repoTransaction.getById(id);
 		  trx.setEstado(estado);
 		  repoTransaction.save(trx);
-=======
-
-	public void update(long id, String estado) {
-		Transaction trx = repoTransaction.getById(id);
-		trx.setEstado(estado);
-		repoTransaction.save(trx);
->>>>>>> master
 	}
 
 }
