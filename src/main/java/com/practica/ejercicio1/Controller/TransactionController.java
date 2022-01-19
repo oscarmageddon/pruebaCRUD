@@ -69,7 +69,6 @@ public class TransactionController {
 	public ResponseEntity<Object> updateTranx(@RequestBody TransactionDto transaction, @PathVariable int id) {
 		this.transactionService.saveOrUpdate(id, transaction.getEstado());
 		return ResponseEntity.ok(Boolean.TRUE);
-
 	}
  
 	@CrossOrigin(origins = "http://localhost:4200")
