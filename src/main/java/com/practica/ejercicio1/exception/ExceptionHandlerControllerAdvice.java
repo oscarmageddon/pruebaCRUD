@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.google.gson.JsonObject;
-
 
 @RestControllerAdvice
 public class ExceptionHandlerControllerAdvice {
@@ -18,7 +16,7 @@ public class ExceptionHandlerControllerAdvice {
 			final HttpServletRequest request) {
 
 		ExceptionResponse error = new ExceptionResponse();
-		error.setErrorMessage(e.getClass().toString() + " " + e.getMessage());		
+		error.setErrorMessage(e.getMessage());		
 		error.setRequestedURI(request.getRequestURI());
 
 		return new ResponseEntity<ExceptionResponse>(error, HttpStatus.NOT_FOUND);
@@ -29,9 +27,6 @@ public class ExceptionHandlerControllerAdvice {
 			final HttpServletRequest request) {
 		ExceptionResponse error = new ExceptionResponse();
 		error.setErrorMessage(e.getErrorMessage());		
-		JsonObject details = new JsonObject();
-		details.addProperty(e.getSubject(), e.getDetail());		
-		error.setDetails(details);
 		error.setRequestedURI(request.getRequestURI());
 		return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
