@@ -1,25 +1,10 @@
 package com.practica.ejercicio1.exception;
 
-import com.google.gson.JsonObject;
-
 public class ExceptionResponse {
 
 	private String errorMessage;
 	private String requestedURI;
-	private JsonObject details;
 	
-	public ExceptionResponse() {
-		this.details = new JsonObject();
-	}
-
-	public String getDetails() {
-		return details.toString();
-	}
-
-	public void setDetails(JsonObject details) {
-		this.details = details;
-	}
-
 	public String getErrorMessage() {
 		return errorMessage;
 	}
