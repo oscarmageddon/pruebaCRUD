@@ -42,5 +42,10 @@ public class TransactionService {
 		trx.setEstado(estado);
 		repoTransaction.save(trx);
 	}
+	
+
+	public Transaction getTransactionById(Long id) {
+		return repoTransaction.getById(id);
+	}
 
 }
