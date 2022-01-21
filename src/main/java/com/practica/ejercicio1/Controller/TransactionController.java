@@ -27,7 +27,7 @@ public class TransactionController {
 	private TransactionService transactionService;
 	private static final String _MSG_TRANSACCION_EXISTENTE = "No se pudo crear la transaccion: Rut de cliente ya existe";
 	private static final String _MSG_TRANSACCION_NO_ENCONTRADA = "No se encontro la transaccion para el rut ingresado";
-	
+
 	@Autowired
 	public TransactionController(TransactionService transactionService) {
 		this.transactionService = transactionService;
@@ -44,18 +44,16 @@ public class TransactionController {
 			transaction.setPaymentMethod(transactionDto.getPaymentMethod());
 			transaction.setEstado(transactionDto.getEstado());
 			Transaction transactionBusqueda = transactionService.traerTransactionDni(transactionDto.getDniUsr());
-			if (transactionBusqueda!=null) {
+			if (transactionBusqueda != null) {
 				TransactionException ex = new TransactionException();
 				ex.setErrorMessage(_MSG_TRANSACCION_EXISTENTE);
 				throw ex;
 			}
 			transactionService.saveTransaction(transaction);
 
-		}
-		catch (TransactionException e) {			
+		} catch (TransactionException e) {
 			throw e;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			TransactionException ex = new TransactionException();
 			ex.setErrorMessage(e.getClass().toString() + " " + e.getMessage());
 			throw ex;
@@ -74,18 +72,19 @@ public class TransactionController {
 		transactionService.update(id, transaction.getEstado());
 		return ResponseEntity.ok(Boolean.TRUE);
 	}
- 
+
 	@GetMapping("/")
 	public ResponseEntity<List<Transaction>> traerTransactions() {
 		List<Transaction> transactions = transactionService.traerTransactions();
+		System.out.println("Transacciones: " + transactions.size());
 		return new ResponseEntity<List<Transaction>>(transactions, HttpStatus.OK);
 	}
 
 	@GetMapping("/dni/{dniUsr}")
-	public ResponseEntity<Transaction> traerTransactionDni(@PathVariable("dniUsr") String dniUsr) 
+	public ResponseEntity<Transaction> traerTransactionDni(@PathVariable("dniUsr") String dniUsr)
 			throws ResourceNotFoundException {
 		Transaction transaction = transactionService.traerTransactionDni(dniUsr);
-		if (transaction==null) {
+		if (transaction == null) {
 			ResourceNotFoundException ex = new ResourceNotFoundException(_MSG_TRANSACCION_NO_ENCONTRADA);
 			throw ex;
 		}
