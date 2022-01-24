@@ -111,7 +111,6 @@ public class TransactionController {
 		transactionIdBd.setApellidoUsr(transactionDto.getApellidoUsr());
 		transactionIdBd.setDniUsr(transactionDto.getDniUsr());
 		transactionIdBd.setPaymentMethod(transactionDto.getPaymentMethod());
-		transactionIdBd.setEstado(transactionDto.getEstado());
 		
 		transactionService.saveTransaction(transactionIdBd);
 		
