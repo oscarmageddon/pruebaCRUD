@@ -24,15 +24,29 @@ public class TransactionService {
 	 * @param transaction
 	 */
 	public void saveTransaction(Transaction transaction) {
+		System.out.println(transaction.getNombreUsr()); 
 		repoTransaction.save(transaction);
 	}
 
+	/**
+	 * Creado por Moises Neira
+	 * Metodo que trae todas las Entidades Transaction existentes en BD.
+	 * 
+	 * @return
+	 */
 	public List<Transaction> traerTransactions() {
 		List<Transaction> transactions = new ArrayList<Transaction>();
 		repoTransaction.findAll().forEach(transaction -> transactions.add(transaction));
 		return transactions;
 	}
 
+	/**
+	 * Creado por Moises Neira
+	 * Metodo que trae de BD la entidad Transaction segun el dni ingresado
+	 * 
+	 * @param dni 
+	 * @return
+	 */
 	public Transaction traerTransactionDni(String dni) {
 		return repoTransaction.findByDniUsr(dni);
 	}
@@ -52,9 +66,9 @@ public class TransactionService {
 	 */
 
 	public void update(long id, String estado) {
-		Transaction trx = repoTransaction.getById(id);
-		trx.setEstado(estado);
-		repoTransaction.save(trx);
+		  Transaction trx = repoTransaction.getById(id);
+		  trx.setEstado(estado);
+		  repoTransaction.save(trx);
 	}
 
 	/**

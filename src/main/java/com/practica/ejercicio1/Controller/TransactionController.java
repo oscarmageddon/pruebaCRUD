@@ -46,6 +46,7 @@ public class TransactionController {
 			throws TransactionException {
 		Transaction transaction = new Transaction();
 		try {
+			
 			transaction.setNombreUsr(transactionDto.getNombreUsr());
 			transaction.setApellidoUsr(transactionDto.getApellidoUsr());
 			transaction.setDniUsr(transactionDto.getDniUsr());
@@ -70,7 +71,8 @@ public class TransactionController {
 	}
 	
    /** 
-    * Creado por Indira Navas 27-01-2022
+    * Creado por Indira Navas 27-01-2022 Supervisado por Mario Tigua
+    * Metodo que elimina por id todas las Entidades Transaction existentes en BD
     * @param id
     * @return
     */
@@ -79,19 +81,27 @@ public class TransactionController {
 		this.transactionService.deleteById(id);
 		return new ResponseEntity<Transaction>(new Transaction(), HttpStatus.OK);
 	}
-	/** Creado por Indira Navas 27-01-2022
-	 * 
+
+	/** Creado por Indira Navas 27-01-2022 Supervisado por Oscar Ramos
+	 * * Metodo que actualiza por id todas las Entidades Transaction existentes en BD
 	 * @param transaction
 	 * @param id
 	 * @return
 	 */
-	
+
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Object> updateTranx(@RequestBody TransactionDto transaction, @PathVariable long id) {
-		transactionService.update(id, transaction.getEstado());
+		this.transactionService.update(id, transaction.getEstado());
 		return ResponseEntity.ok(Boolean.TRUE);
 	}
+
+	/**
+	 * Creado por Moises Neira
+	 * Metodo que trae todas las Entidades Transaction existentes en BD.
+	 * 
+	 * @return
+	 */
 
 	@GetMapping("/")
 	public ResponseEntity<List<Transaction>> traerTransactions() {
@@ -100,6 +110,14 @@ public class TransactionController {
 		return new ResponseEntity<List<Transaction>>(transactions, HttpStatus.OK);
 	}
 
+	
+	/**
+	 * Metodo que trae de BD una entidad Transaction segun el dni ingresado
+	 * 
+	 * @param dniUsr
+	 * @return
+	 * @throws ResourceNotFoundException
+	 */
 	@GetMapping("/dni/{dniUsr}")
 	public ResponseEntity<Transaction> traerTransactionDni(@PathVariable("dniUsr") String dniUsr)
 			throws ResourceNotFoundException {
