@@ -28,12 +28,19 @@ public class TransactionController {
 	private static final String _MSG_TRANSACCION_EXISTENTE = "No se pudo crear la transaccion: Rut de cliente ya existe";
 	private static final String _MSG_TRANSACCION_NO_ENCONTRADA = "No se encontro la transaccion para el rut ingresado";
 	private static final String _MSG_TRANSACCION_NO_ENCONTRADA_BY_ID = "No se encontro la transaccion para el id ingresado";
-	
+
 	@Autowired
 	public TransactionController(TransactionService transactionService) {
 		this.transactionService = transactionService;
 	}
 
+	/**
+	 * Creado por Oscar Campos 27-01-2022
+	 * 
+	 * @param transactionDto
+	 * @return
+	 * @throws TransactionException
+	 */
 	@PostMapping("/")
 	public ResponseEntity<Transaction> insertarTransaction(@RequestBody TransactionDto transactionDto)
 			throws TransactionException {
@@ -45,18 +52,16 @@ public class TransactionController {
 			transaction.setPaymentMethod(transactionDto.getPaymentMethod());
 			transaction.setEstado(transactionDto.getEstado());
 			Transaction transactionBusqueda = transactionService.traerTransactionDni(transactionDto.getDniUsr());
-			if (transactionBusqueda!=null) {
+			if (transactionBusqueda != null) {
 				TransactionException ex = new TransactionException();
 				ex.setErrorMessage(_MSG_TRANSACCION_EXISTENTE);
 				throw ex;
 			}
 			transactionService.saveTransaction(transaction);
 
-		}
-		catch (TransactionException e) {			
+		} catch (TransactionException e) {
 			throw e;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			TransactionException ex = new TransactionException();
 			ex.setErrorMessage(e.getClass().toString() + " " + e.getMessage());
 			throw ex;
@@ -69,40 +74,52 @@ public class TransactionController {
 		this.transactionService.deleteById(id);
 		return new ResponseEntity<Transaction>(new Transaction(), HttpStatus.OK);
 	}
-
+	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Object> updateTranx(@RequestBody TransactionDto transaction, @PathVariable long id) {
 		transactionService.update(id, transaction.getEstado());
 		return ResponseEntity.ok(Boolean.TRUE);
 	}
- 
+
 	@GetMapping("/")
 	public ResponseEntity<List<Transaction>> traerTransactions() {
 		List<Transaction> transactions = transactionService.traerTransactions();
+		System.out.println("Transacciones: " + transactions.size());
 		return new ResponseEntity<List<Transaction>>(transactions, HttpStatus.OK);
 	}
 
 	@GetMapping("/dni/{dniUsr}")
-	public ResponseEntity<Transaction> traerTransactionDni(@PathVariable("dniUsr") String dniUsr) 
+	public ResponseEntity<Transaction> traerTransactionDni(@PathVariable("dniUsr") String dniUsr)
 			throws ResourceNotFoundException {
 		Transaction transaction = transactionService.traerTransactionDni(dniUsr);
-		if (transaction==null) {
+		if (transaction == null) {
 			ResourceNotFoundException ex = new ResourceNotFoundException(_MSG_TRANSACCION_NO_ENCONTRADA);
 			throw ex;
 		}
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.CREATED);
 	}
+
+	
+	/**
+	 * Creado por Mario Tigua
+	 * 
+	 * @param transactionDto
+	 * @param id
+	 * @return
+	 * @throws ResourceNotFoundException
+	 * @throws TransactionException
+	 */
 	
 	@PutMapping("/actualizar/{id}")
-	public ResponseEntity<Object> actualizarTransaction(@RequestBody TransactionDto transactionDto, @PathVariable Long id) 
-			throws ResourceNotFoundException,TransactionException {
+	public ResponseEntity<Object> actualizarTransaction(@RequestBody TransactionDto transactionDto,
+			@PathVariable Long id) throws ResourceNotFoundException, TransactionException {
 		Transaction transactionIdBd = transactionService.getTransactionById(id);
-		if (transactionIdBd==null) {
+		if (transactionIdBd == null) {
 			ResourceNotFoundException ex = new ResourceNotFoundException(_MSG_TRANSACCION_NO_ENCONTRADA_BY_ID);
 			throw ex;
 		}
 		Transaction transactionDniBd = transactionService.traerTransactionDni(transactionDto.getDniUsr());
-		if (transactionDniBd!=null && id !=transactionDniBd.getId()) {
+		if (transactionDniBd != null && id != transactionDniBd.getId()) {
 			TransactionException ex = new TransactionException();
 			ex.setErrorMessage(_MSG_TRANSACCION_EXISTENTE);
 			throw ex;
@@ -111,6 +128,7 @@ public class TransactionController {
 		transactionIdBd.setApellidoUsr(transactionDto.getApellidoUsr());
 		transactionIdBd.setDniUsr(transactionDto.getDniUsr());
 		transactionIdBd.setPaymentMethod(transactionDto.getPaymentMethod());
+		transactionIdBd.setEstado(transactionDto.getEstado());
 		
 		transactionService.saveTransaction(transactionIdBd);
 		
