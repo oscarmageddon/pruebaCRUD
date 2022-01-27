@@ -19,6 +19,10 @@ public class TransactionService {
 		this.repoTransaction = repoTransaction;
 	}
 
+	/**
+	 * Creado por Oscar Campos
+	 * @param transaction
+	 */
 	public void saveTransaction(Transaction transaction) {
 		repoTransaction.save(transaction);
 	}
@@ -42,7 +46,6 @@ public class TransactionService {
 		trx.setEstado(estado);
 		repoTransaction.save(trx);
 	}
-	
 
 	public Transaction getTransactionById(Long id) {
 		return repoTransaction.getById(id);
