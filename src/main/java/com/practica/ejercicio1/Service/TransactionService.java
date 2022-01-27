@@ -47,6 +47,12 @@ public class TransactionService {
 		repoTransaction.save(trx);
 	}
 
+	/**
+	 * Creado por Mario Tigua.
+	 * Servicio que permite obtener una Transaction dado su id.
+	 * @param id
+	 * @return
+	 */
 	public Transaction getTransactionById(Long id) {
 		return repoTransaction.getById(id);
 	}

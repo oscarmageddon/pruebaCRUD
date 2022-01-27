@@ -99,6 +99,17 @@ public class TransactionController {
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.CREATED);
 	}
 
+	
+	/**
+	 * Creado por Mario Tigua
+	 * 
+	 * @param transactionDto
+	 * @param id
+	 * @return
+	 * @throws ResourceNotFoundException
+	 * @throws TransactionException
+	 */
+	
 	@PutMapping("/actualizar/{id}")
 	public ResponseEntity<Object> actualizarTransaction(@RequestBody TransactionDto transactionDto,
 			@PathVariable Long id) throws ResourceNotFoundException, TransactionException {
@@ -118,9 +129,9 @@ public class TransactionController {
 		transactionIdBd.setDniUsr(transactionDto.getDniUsr());
 		transactionIdBd.setPaymentMethod(transactionDto.getPaymentMethod());
 		transactionIdBd.setEstado(transactionDto.getEstado());
-
+		
 		transactionService.saveTransaction(transactionIdBd);
-
+		
 		return ResponseEntity.ok(Boolean.TRUE);
 	}
 
