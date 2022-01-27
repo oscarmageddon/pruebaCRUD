@@ -1,5 +1,10 @@
 package com.practica.ejercicio1.exception;
-
+/**
+ * Clase de respuesta con mensajes de error del sistema
+ * @author Mario Tigua
+ *
+ */
+		
 public class ExceptionResponse {
 
 	private String errorMessage;
