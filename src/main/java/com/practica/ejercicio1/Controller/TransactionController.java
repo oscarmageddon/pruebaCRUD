@@ -82,6 +82,12 @@ public class TransactionController {
 		return ResponseEntity.ok(Boolean.TRUE);
 	}
 
+	/**
+	 * Creado por Moises Neira
+	 * Metodo que trae todas las Entidades Transaction existentes en BD.
+	 * 
+	 * @return
+	 */
 	@GetMapping("/")
 	public ResponseEntity<List<Transaction>> traerTransactions() {
 		List<Transaction> transactions = transactionService.traerTransactions();
@@ -89,6 +95,14 @@ public class TransactionController {
 		return new ResponseEntity<List<Transaction>>(transactions, HttpStatus.OK);
 	}
 
+	
+	/**
+	 * Metodo que trae de BD una entidad Transaction segun el dni ingresado
+	 * 
+	 * @param dniUsr
+	 * @return
+	 * @throws ResourceNotFoundException
+	 */
 	@GetMapping("/dni/{dniUsr}")
 	public ResponseEntity<Transaction> traerTransactionDni(@PathVariable("dniUsr") String dniUsr)
 			throws ResourceNotFoundException {
