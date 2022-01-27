@@ -77,7 +77,7 @@ public class TransactionController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Object> updateTranx(@RequestBody TransactionDto transaction, @PathVariable int id) {
+	public ResponseEntity<Object> updateTranx(@RequestBody TransactionDto transaction, @PathVariable long id) {
 		this.transactionService.update(id, transaction.getEstado());
 		return ResponseEntity.ok(Boolean.TRUE);
 	}
