@@ -55,7 +55,7 @@ public class TransactionService {
 		this.repoTransaction.deleteById(Id);
 	}
 
-	public void saveOrUpdate(long id, String estado) {
+	public void update(long id, String estado) {
 		  Transaction trx = repoTransaction.getById(id);
 		  trx.setEstado(estado);
 		  repoTransaction.save(trx);
