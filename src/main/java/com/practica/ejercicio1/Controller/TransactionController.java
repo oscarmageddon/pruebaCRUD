@@ -75,7 +75,8 @@ public class TransactionController {
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
 	}
 
-   /** 
+	
+	/** 
     * Creado por Indira Navas 27-01-2022 Supervisado por Mario Tigua
     * Metodo que elimina por id todas las Entidades Transaction existentes en BD
     * @param id
@@ -86,6 +87,14 @@ public class TransactionController {
 		this.transactionService.deleteById(id);
 		return new ResponseEntity<Transaction>(new Transaction(), HttpStatus.OK);
 	}
+
+	/** Creado por Indira Navas 27-01-2022 Supervisado por Oscar Ramos
+	 * * Metodo que actualiza por id todas las Entidades Transaction existentes en BD
+	 * @param transaction
+	 * @param id
+	 * @return
+	 */
+
 	
 	/** Creado por Edgar Chavez 27-01-2022 Supervisado por Oscar Ramos
 	 * * Metodo que actualiza por id todas las Entidades Transaction existentes en BD(Habilita/Inhabilita)
@@ -105,6 +114,7 @@ public class TransactionController {
 	 * 
 	 * @return
 	 */
+
 	@GetMapping("/")
 	public ResponseEntity<List<Transaction>> traerTransactions() {
 		List<Transaction> transactions = transactionService.traerTransactions();
