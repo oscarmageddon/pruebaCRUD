@@ -2,6 +2,8 @@ package com.practica.ejercicio1.Controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import com.practica.ejercicio1.Service.TransactionService;
 import com.practica.ejercicio1.dto.TransactionDto;
 import com.practica.ejercicio1.exception.ResourceNotFoundException;
 import com.practica.ejercicio1.exception.TransactionException;
+
 
 @RestController
 @RequestMapping("/transaction")
@@ -42,7 +45,7 @@ public class TransactionController {
 	 * @throws TransactionException
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Transaction> insertarTransaction(@RequestBody TransactionDto transactionDto)
+	public ResponseEntity<Transaction> insertarTransaction(@Valid @RequestBody TransactionDto transactionDto)
 			throws TransactionException {
 		Transaction transaction = new Transaction();
 		try {
@@ -117,7 +120,7 @@ public class TransactionController {
 	
 	/**
 	 * Creado por Mario Tigua
-	 * 
+	 * Metodo que permite actualizar una transaccion
 	 * @param transactionDto
 	 * @param id
 	 * @return
@@ -126,7 +129,7 @@ public class TransactionController {
 	 */
 	
 	@PutMapping("/actualizar/{id}")
-	public ResponseEntity<Object> actualizarTransaction(@RequestBody TransactionDto transactionDto,
+	public ResponseEntity<Object> actualizarTransaction(@Valid @RequestBody TransactionDto transactionDto,
 			@PathVariable Long id) throws ResourceNotFoundException, TransactionException {
 		Transaction transactionIdBd = transactionService.getTransactionById(id);
 		if (transactionIdBd == null) {
