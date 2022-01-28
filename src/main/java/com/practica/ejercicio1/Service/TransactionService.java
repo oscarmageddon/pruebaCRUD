@@ -50,10 +50,20 @@ public class TransactionService {
 	public Transaction traerTransactionDni(String dni) {
 		return repoTransaction.findByDniUsr(dni);
 	}
-
+    /** 
+     * Creado por Indira Navas con supervision y ayuda Mario Tigua 27-01-2021
+     * Servicio que permite el borrado por id
+     * @param Id
+     */
 	public void deleteById(Long Id) {
 		this.repoTransaction.deleteById(Id);
 	}
+	/**
+	 * Creado por Indira Navas con supervision y ayuda de Oscar Campos 27-01-2021
+	 * Servicio que permite el cambio de estado de 1 cuando es Habilitado a 0 cuando esta Inhabilitado
+	 * @param id
+	 * @param estado
+	 */
 
 	public void update(long id, String estado) {
 		  Transaction trx = repoTransaction.getById(id);

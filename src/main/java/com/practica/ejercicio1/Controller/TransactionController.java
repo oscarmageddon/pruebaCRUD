@@ -69,12 +69,26 @@ public class TransactionController {
 		}
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
 	}
-
+	
+   /** 
+    * Creado por Indira Navas 27-01-2022 Supervisado por Mario Tigua
+    * Metodo que elimina por id todas las Entidades Transaction existentes en BD
+    * @param id
+    * @return
+    */
 	@DeleteMapping("/{id}")
 	private ResponseEntity<Transaction> deleteTransaction(@PathVariable("id") Long id) {
 		this.transactionService.deleteById(id);
 		return new ResponseEntity<Transaction>(new Transaction(), HttpStatus.OK);
 	}
+
+	/** Creado por Indira Navas 27-01-2022 Supervisado por Oscar Ramos
+	 * * Metodo que actualiza por id todas las Entidades Transaction existentes en BD
+	 * @param transaction
+	 * @param id
+	 * @return
+	 */
+
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Object> updateTranx(@RequestBody TransactionDto transaction, @PathVariable long id) {
@@ -88,6 +102,7 @@ public class TransactionController {
 	 * 
 	 * @return
 	 */
+
 	@GetMapping("/")
 	public ResponseEntity<List<Transaction>> traerTransactions() {
 		List<Transaction> transactions = transactionService.traerTransactions();
