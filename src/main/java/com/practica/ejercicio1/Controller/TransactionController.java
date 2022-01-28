@@ -29,6 +29,8 @@ public class TransactionController {
 
 	private TransactionService transactionService;
 	private static final String _MSG_TRANSACCION_EXISTENTE = "No se pudo crear la transaccion: Rut de cliente ya existe";
+   //27-01-2022 E.C Se corrije mensaje dependiendo si es editar o agregar
+	private static final String _MSG_TRANSACCION_EXISTENTE_EDITAR = "No se pudo editar la transaccion: Rut de cliente ya existe";
 	private static final String _MSG_TRANSACCION_NO_ENCONTRADA = "No se encontro la transaccion para el rut ingresado";
 	private static final String _MSG_TRANSACCION_NO_ENCONTRADA_BY_ID = "No se encontro la transaccion para el id ingresado";
 
@@ -73,12 +75,24 @@ public class TransactionController {
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
 	}
 
+   /** 
+    * Creado por Indira Navas 27-01-2022 Supervisado por Mario Tigua
+    * Metodo que elimina por id todas las Entidades Transaction existentes en BD
+    * @param id
+    * @return
+    */
 	@DeleteMapping("/{id}")
 	private ResponseEntity<Transaction> deleteTransaction(@PathVariable("id") Long id) {
 		this.transactionService.deleteById(id);
 		return new ResponseEntity<Transaction>(new Transaction(), HttpStatus.OK);
 	}
 	
+	/** Creado por Edgar Chavez 27-01-2022 Supervisado por Oscar Ramos
+	 * * Metodo que actualiza por id todas las Entidades Transaction existentes en BD(Habilita/Inhabilita)
+	 * @param transaction
+	 * @param id
+	 * @return
+	 */
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Object> updateTranx(@RequestBody TransactionDto transaction, @PathVariable long id) {
 		this.transactionService.update(id, transaction.getEstado());
@@ -101,7 +115,7 @@ public class TransactionController {
 	
 	/**
 	 * Metodo que trae de BD una entidad Transaction segun el dni ingresado
-	 * 
+	 * Creado por Moises Neira
 	 * @param dniUsr
 	 * @return
 	 * @throws ResourceNotFoundException
@@ -139,7 +153,8 @@ public class TransactionController {
 		Transaction transactionDniBd = transactionService.traerTransactionDni(transactionDto.getDniUsr());
 		if (transactionDniBd != null && id != transactionDniBd.getId()) {
 			TransactionException ex = new TransactionException();
-			ex.setErrorMessage(_MSG_TRANSACCION_EXISTENTE);
+			//Se Corrije Mensaje de Alerta E.C
+			ex.setErrorMessage(_MSG_TRANSACCION_EXISTENTE_EDITAR);
 			throw ex;
 		}
 		transactionIdBd.setNombreUsr(transactionDto.getNombreUsr());
