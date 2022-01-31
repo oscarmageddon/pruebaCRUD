@@ -1,10 +1,21 @@
 package com.practica.ejercicio1.dto;
 
+import javax.validation.constraints.NotBlank;
+
+/**
+ * Clase dto de Transaction con validaciones para los campos a ingresar  
+ * @author Mario Tigua
+ *
+ */
 public class TransactionDto {
 	private Long id;
+	@NotBlank (message = "Rut no puede ser nulo")
 	private String dniUsr;
+	@NotBlank (message = "Nombre no puede ser nulo")
 	private String nombreUsr;
+	@NotBlank (message = "Apellido no puede ser nulo")
 	private String apellidoUsr;
+	@NotBlank (message = "Metodo de pago no puede ser nulo")
 	private String paymentMethod;
 	private String estado;
 	

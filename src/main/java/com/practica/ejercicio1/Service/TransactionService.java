@@ -72,7 +72,7 @@ public class TransactionService {
 	}
 
 	/**
-	 * Creado por Mario Tigua.
+	 * Creado por Edgar Chavez.
 	 * Servicio que permite obtener una Transaction dado su id.
 	 * @param id
 	 * @return
